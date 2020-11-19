@@ -6,11 +6,15 @@ defmodule FizzBuzz do
   end
   
   def handle_file_read({:ok, result }) do
-    result
-    |>String.split(",") # Comentário
-    |>Enum.map(&convert_numbers/1)
+    result = 
+      result
+      |>String.split(",") # Comentário
+      |>Enum.map(&convert_numbers/1)
+
+    {:ok, result}
   end
-  def handle_file_read({:error, reason }), do: "Erro reading the file: #{reason}"
+
+  def handle_file_read({:error, reason }), do: {:error, "Erro reading the file: #{reason}"}
 
   def convert_numbers(number) do
     number 
