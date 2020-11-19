@@ -8,7 +8,18 @@ defmodule FizzBuzz do
   def handle_file_read({:ok, result }) do
     result
     |>String.split(",") # Comentário
-    |>Enum.map(&String.to_integer/1)
+    |>Enum.map(&convert_numbers/1)
   end
   def handle_file_read({:error, reason }), do: "Erro reading the file: #{reason}"
+
+  def convert_numbers(number) do
+    number 
+    |>String.to_integer()
+    |>evaluate_number()
+  end
+
+  def evaluate_number(number) when rem(number, 3) == 0 and rem(number, 5) == 0, do:  :fizzbuzz
+  def evaluate_number(number) when rem(number, 3) == 0, do:  :fizz
+  def evaluate_number(number) when rem(number, 5) == 0, do:  :buzz
+  def evaluate_number(number), do: number
 end
